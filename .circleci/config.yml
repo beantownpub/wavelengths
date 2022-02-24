@@ -90,7 +90,7 @@ jobs:
             kubectl config get-contexts
             kubectl get pods -n prod
       - run:
-          name: Deploy bentown-frontend
+          name: Deploy wavelengths-frontend
           command: |
             export WAVELENGTHS_VERSION=$(jq -r .version package.json | tr -d '"')
             helm repo update
