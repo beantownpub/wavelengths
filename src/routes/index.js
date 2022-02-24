@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var config = require('./config.json')
+var config = require('../utils/config.json')
 var sections = config.sections
 
 router.use(function (req, res, next) {

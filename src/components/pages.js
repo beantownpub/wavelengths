@@ -1,9 +1,8 @@
 import React from 'react'
 import { InfoSection } from './common'
 import { Map } from './map'
-
-const config = require('./../config.json')
-const COLORS = config.wavelengths.colors
+import { config } from '../utils/main'
+const COLORS = config.colors
 
 export const MainInfo = () => {
     return (
@@ -42,15 +41,15 @@ export const Services = () => {
                         <tbody>
                         <tr>
                         <td>Wash &amp; Cut</td>
-                        <td>30.00 &amp; Up</td>
+                        <td>35.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Wash, Cut, &amp; Blow Dry</td>
-                        <td>55.00 &amp; Up</td>
+                        <td>60.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Wash, &amp; Blow Dry</td>
-                        <td>30.00 &amp; Up</td>
+                        <td>35.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Up-Do</td>
@@ -58,7 +57,7 @@ export const Services = () => {
                         </tr>
                         <tr>
                         <td>One process color</td>
-                        <td>50.00 &amp; Up</td>
+                        <td>55.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Balayage</td>
@@ -66,19 +65,19 @@ export const Services = () => {
                         </tr>
                         <tr>
                         <td>Foil Highlights</td>
-                        <td>90.00 &amp; Up</td>
+                        <td>95.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Perm</td>
-                        <td>90.00 &amp; Up</td>
+                        <td>95.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Keratin Coppola Complex</td>
-                        <td>275.00 &amp; Up</td>
+                        <td>300.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Keratin Express</td>
-                        <td>100.00 &amp; Up</td>
+                        <td>125.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Olaplex Treatment</td>
@@ -90,11 +89,11 @@ export const Services = () => {
                         </tr>
                         <tr>
                         <td>Children Under 10 Years</td>
-                        <td>23.00 &amp; Up</td>
+                        <td>28.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Eye Brow Wax</td>
-                        <td>12.00</td>
+                        <td>18.00</td>
                         </tr>
                         </tbody>
                     </table>
@@ -107,7 +106,7 @@ export const Services = () => {
 }
 
 export const ContactInfo = () => {
-    const api_key = "AIzaSyAXB15L0ZUglrIv_DlWz7XrVSQ0g6lGiwI"
+    const apiKey = process.env.GOOGLE_API_KEY
     return (
         <div>
         <InfoSection bgColor={COLORS.softGray}>
@@ -121,7 +120,7 @@ export const ContactInfo = () => {
         <InfoSection bgColor='#383838'>
             <Map
                 isMarkerShown
-                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${api_key}&v=3.exp&libraries=geometry,drawing,places`}
+                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `225px`, maxWidth: `80%` }} />}
                 mapElement={<div style={{ height: `100%` }} />}

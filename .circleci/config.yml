@@ -1,0 +1,110 @@
+version: 2.1
+executors:
+  build_machine:
+    machine:
+      image: ubuntu-1604:202007-01
+    environment:
+      DOCKER_BUILDKIT: 1
+      BUILDX_PLATFORMS: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
+    resource_class: large
+  debian:
+    docker:
+    - image: python:3.7-slim-buster
+
+commands:
+  install_k8s_dependencies:
+    description: Install dependencies for deploying to K8s cluster
+    steps:
+      - run:
+          name: Install kubectl
+          command: |
+            apt-get update -y && apt-get install -y curl
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+            kubectl config set-credentials jalbot --token=$JALBOT_TOKEN
+            kubectl config set-cluster prod --server=$K8S_SERVER --insecure-skip-tls-verify=true
+            kubectl config set-context jalbot --cluster=prod --user=jalbot
+            kubectl config use-context jalbot
+      - run:
+          name: Install helm
+          command: |
+            apt-get install apt-transport-https gnupg2 --yes
+            curl https://baltocdn.com/helm/signing.asc | apt-key add -
+            echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list
+            apt-get update
+            apt-get install -y helm
+  install_version_dependencies:
+    description: Install dependencies for versioning
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            apt-get update && apt-get install -y git jq
+  check_tags:
+    description: Check if git tag matches package.json version
+    steps:
+      - run:
+          name: Check tags
+          command: |
+            WAVELENGTHS_VERSION=$(jq -r .version package.json | tr -d '"')
+            GIT_TAG=$(git describe)
+            echo "Version: ${WAVELENGTHS_VERSION} | Tag: ${GIT_TAG}"
+            if [ "$WAVELENGTHS_VERSION" != "$GIT_TAG" ]; then
+                circleci-agent step halt
+            fi
+
+jobs:
+  build_and_publish:
+    executor: build_machine
+    steps:
+      - checkout
+      - run:
+          name: Build Image
+          command: |
+            export WAVELENGTHS_VERSION=$(jq -r .version package.json | tr -d '"')
+            docker build \
+              -t wavelengths:$WAVELENGTHS_VERSION \
+              --build-arg google_api_key=$GOOGLE_API_KEY \
+              --build-arg node_env=production .
+      - check_tags
+      - run:
+          name: Publish Image
+          command: |
+            export WAVELENGTHS_VERSION=$(jq -r .version package.json | tr -d '"')
+            echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USERNAME --password-stdin
+            docker tag wavelengths:$WAVELENGTHS_VERSION $DOCKER_USERNAME/wavelengths:$WAVELENGTHS_VERSION
+            docker push $DOCKER_USERNAME/wavelengths:$WAVELENGTHS_VERSION
+
+  deploy:
+    circleci_ip_ranges: true
+    executor: debian
+    steps:
+      - checkout
+      - install_version_dependencies
+      - check_tags
+      - install_k8s_dependencies
+      - run:
+          name: Add Helm repo
+          command: |
+            helm repo add beantown $HELM_REPO
+            kubectl config get-contexts
+            kubectl get pods -n prod
+      - run:
+          name: Deploy bentown-frontend
+          command: |
+            export WAVELENGTHS_VERSION=$(jq -r .version package.json | tr -d '"')
+            helm repo update
+            helm upgrade --install wavelengths beantown/wavelengths \
+              --namespace prod \
+              --set global.env=prod \
+              --set image.tag=$WAVELENGTHS_VERSION \
+              --debug
+
+workflows:
+  version: 2
+  wavelengths_frontend:
+    jobs:
+      - build_and_publish
+      - deploy:
+          requires:
+            - build_and_publish

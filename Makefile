@@ -1,41 +1,56 @@
 .PHONY: all test clean
 
+name ?= wavelengths
 dockerhub ?= jalgraves
 image_name ?= wavelengths
-version ?= $(shell jq .version package.json)
+port ?= 3077
+version ?= $(shell jq -r .version package.json | tr -d '"')
+hash = $(shell git rev-parse --short HEAD)
+
+ifeq ($(env),dev)
+	image_tag = $(version)-$(hash)
+	node_env = development
+	context = ${DEV_CONTEXT}
+	namespace = ${DEV_NAMESPACE}
+else ifeq ($(env), prod)
+	image_tag = $(version)
+	node_env = production
+	context = ${PROD_CONTEXT}
+	namespace = ${PROD_NAMESPACE}
+endif
+
+context:
+	kubectl config use-context $(context)
 
 sass:
-		sass ${PWD}/src/sass/wavelengths.sass ${PWD}/dist/public/css/style.css
+		sass ${PWD}/src/static/sass/wavelengths.sass ${PWD}/dist/public/css/style.css
 
 stop:
 		docker rm -f $(image_name) || true
 
-prod_build: sass
-		docker build \
-			-t $(image_name):$(version) \
-			--build-arg node_env=production .
+build: sass
+	docker build \
+		-t $(image_name):$(image_tag) \
+		--build-arg google_api_key=${GOOGLE_API_KEY} \
+		--build-arg node_env=$(node_env) .
 
-dev_build: sass
-		docker build \
-			-t $(image_name):$(version) \
-			--build-arg node_env=development .
-
-start:
-		docker run \
-			-d \
-			--name $(image_name) \
-			--restart always \
-			-p "3037:3037" \
-			-v "${PWD}/dist/public/css:/app/dist/public/css" \
-			-v "${PWD}/dist/public/images:/app/dist/public/images" \
-			-e API_USER=${API_USER} \
-			-e API_PW=${API_PW} \
-			$(image_name):$(version)
-
-publish: dev_build
-		docker tag $(image_name):$(version) $(dockerhub)/$(image_name):$(version)
-		docker push $(dockerhub)/$(image_name):$(version)
+publish: build
+		docker tag $(image_name):$(image_tag) $(dockerhub)/$(image_name):$(image_tag)
+		docker push $(dockerhub)/$(image_name):$(image_tag)
 
 latest:
-		docker tag $(image_name):$(version) $(dockerhub)/$(image_name):latest
+		docker tag $(image_name):$(image_tag) $(dockerhub)/$(image_name):latest
 		docker push $(dockerhub)/$(image_name):latest
+
+exec_pod: context
+	${HOME}/github/helm/scripts/exec_pod.sh $(env) $(name)
+
+kill_pod: context
+	${HOME}/github/helm/scripts/kill_pod.sh $(env) $(name)
+
+kill_port_forward: context
+	${HOME}/github/helm/scripts/stop_port_forward.sh $(port)
+
+redeploy: build restart
+
+restart: kill_pod kill_port_forward
