@@ -4,7 +4,6 @@ import { MainInfo, ContactInfo, Services } from './components/pages'
 import {  Footer } from './components/common'
 import { TopMenuBar, LinkList, TopNavBar, linkProps } from './components/TopBar'
 import { config } from './utils/main'
-require('dotenv').config()
 
 const PAGES = config.pages
 const COLORS = config.colors

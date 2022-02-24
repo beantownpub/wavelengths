@@ -109,7 +109,7 @@ export const ContactInfo = () => {
     const apiKey = process.env.GOOGLE_API_KEY
     return (
         <div>
-        <InfoSection bgColor={COLORS.softGray}>
+        <InfoSection bgColor={COLORS.softGray} marginTop="5rem" aria-labelledby="Contact info container">
             <section>
                 <h3>Call</h3>
                 <h2>617-232-2116</h2>
@@ -117,7 +117,7 @@ export const ContactInfo = () => {
                 <h2>1343 Beacon Street<br />Brookline MA, 02446</h2>
             </section>
         </InfoSection>
-        <InfoSection bgColor='#383838'>
+        <InfoSection bgColor='#383838' aria-labelledby="Map container">
             <Map
                 isMarkerShown
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`}
