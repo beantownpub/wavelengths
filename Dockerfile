@@ -9,6 +9,8 @@ RUN apt-get update  && \
         gcc
 
 FROM build AS install
+ARG google_api_key
+ENV GOOGLE_API_KEY=${google_api_key}
 ARG node_env
 ENV NODE_ENV=${node_env}
 

@@ -1,0 +1,13 @@
+Dockerfile
+Makefile
+LICENSE
+README.md
+.git
+.gitignore
+.eslintrc
+.eslint.json
+.editorconfig
+.tool-versions
+.envrc
+src/static/
+node_modules/

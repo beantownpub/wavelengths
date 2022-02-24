@@ -1,8 +1,7 @@
 import React from 'react'
 import { SocialIcon } from './icons'
-
-const config = require('./../config.json')
-const urls = config.wavelengths.urls
+import { config } from '../utils/main'
+const urls = config.urls
 
 const iconStyle = {
 	padding: '0 .25em',

@@ -1,13 +1,9 @@
 import styled from 'styled-components'
+import { config } from '../utils/main'
 
-const COLORS = {
-    red: "#c70039",
-    blue: "#1f6696",
-    gray: "#bdc3c7",
-    lightGray: "#F3F4F4",
-    darkGray: "#888888",
-    green: "#85f020"
-}
+const COLORS = config.colors
+const FONTS = config.fonts
+
 export const StyledLink = styled.div`
     a {
         margin: auto;
@@ -19,7 +15,7 @@ export const StyledLink = styled.div`
         letter-spacing: .15em;
         text-transform: uppercase;
         left: -17em;
-        font-family: 'Raleway', Arial, sans-serif;
+        font-family: ${FONTS.content};
         color: ${COLORS.blue};
         text-decoration: none;
     }
@@ -54,7 +50,7 @@ export const StyledHamburger = styled.div`
         left: 0.5em;
         background: linear-gradient(#373a47 20%, transparent 20%, transparent 40%, #373a47 40%, #373a47 60%, transparent 60%, transparent 80%, #373a47 80%);
         content: '';
-        font-family: 'Raleway', Arial, sans-serif;
+        font-family: ${FONTS.content};
         color: #fbfb0e;
     }
     @media (min-width: 1000px)
@@ -115,7 +111,7 @@ export const StyledTopNav = styled.div`
             text-transform: uppercase;
             text-decoration: none;
             color: ${COLORS.blue};
-            font-family: 'Raleway', Arial, sans-serif;
+            font-family: ${FONTS.content};
         }
         a:hover {
             color: ${COLORS.red};
@@ -184,7 +180,7 @@ export const StyledSlideMenu = styled.div`
             letter-spacing: .15em;
             text-decoration: none;
             color: ${COLORS.blue};
-            font-family: 'Raleway', Arial, sans-serif;
+            font-family: ${FONTS.content};
         }
     }
     .menu_list {
@@ -224,7 +220,7 @@ export const StyledNavBar = styled.div`
     }
     h2 {
         color: ${props => props.navBarFontColor || "white"};
-        font-family: 'Raleway', Arial, sans-serif;
+        font-family: ${FONTS.content};
     }
 `
 
@@ -243,7 +239,7 @@ export const StyledInfo = styled.div`
     display: flex;
     flex-flow: column wrap;
     letter-spacing: .12rem;
-    font-family: gotham;
+    font-family: ${FONTS.headline};
     color: ${props => props.fontColor || "black"};
     line-height: 170%;
     section {
@@ -254,7 +250,7 @@ export const StyledInfo = styled.div`
     h1 {
         padding: .5rem 0;
         font-size: 2.15em;
-        font-family: gotham-narrow-ultra;
+        font-family: ${FONTS.headline};
         line-height: 170%;
         text-align: center;
         letter-spacing: .2rem;
@@ -265,7 +261,7 @@ export const StyledInfo = styled.div`
     h2 {
         padding: .5rem 0;
         max-width: 80vw;
-        font-family: gotham;
+        font-family: ${FONTS.content};
         font-size: 2em;
         line-height: 170%;
         text-align: ${props => props.textAlign || "center"};
@@ -276,7 +272,7 @@ export const StyledInfo = styled.div`
     h3 {
         padding: 1rem 0;
         max-width: 80vw;
-        font-family: gotham-narrow-ultra;
+        font-family: ${FONTS.headline};
         font-size: 2em;
         line-height: 170%;
         letter-spacing: .25rem;
@@ -285,7 +281,7 @@ export const StyledInfo = styled.div`
     h4 {
         padding: .5rem 0;
         max-width: 40rem;
-        font-family: gotham;
+        font-family: ${FONTS.content};
         font-size: 1.75rem;
         text-transform: none;
         line-height: 170%;
@@ -302,7 +298,7 @@ export const StyledInfo = styled.div`
     h6 {
         padding: .5rem 0;
         max-width: 40rem;
-        font-family: gotham;
+        font-family: ${FONTS.content};
         font-size: .75rem;
         text-transform: none;
         line-height: 170%;
@@ -310,21 +306,21 @@ export const StyledInfo = styled.div`
     a {
         text-decoration: none;
         color: #3fc5f0;
-        font-family: gotham-medium;
+        font-family: ${FONTS.headline};
         text-transform: capitalize;
     }
     article {
         padding: 2rem 0 0 0;
         max-width: 50rem;
         text-transform: none;
-        font-family: gotham-medium;
+        font-family: ${FONTS.headline};
     }
     p {
         padding: .5rem 0;
         max-width: 50rem;
         color: white;
         text-transform: none;
-        font-family: gotham-medium;
+        font-family: ${FONTS.headline};
         font-size: 1.2rem;
     }
     img {
@@ -349,7 +345,7 @@ export const StyledLinkButton = styled.div`
         width: 10rem;
         border: none;
         border-radius: .3rem;
-        font-family: gotham-narrow-ultra;
+        font-family: ${FONTS.headline};
         font-size: 1.5em;
         text-transform: uppercase;
         letter-spacing: .2em;
@@ -369,7 +365,7 @@ export const StyledHero = styled.div`
     h1 {
         margin: auto;
         max-width: 80%;
-        font-family: gotham-narrow-ultra;
+        font-family: ${FONTS.headline};
         font-size: 3.5rem;
         text-transform: uppercase;
         letter-spacing: .2em;
@@ -396,7 +392,7 @@ export const StyledFooter = styled.div`
     background-color: ${props => props.backgroundColor || "white"};
     footer {
         margin: auto;
-        font-family: 'Raleway', Arial, sans-serif;
+        font-family: ${FONTS.content};
         text-transform: uppercase;
         color: ${props => props.fontColor || "#1f6696"};
         text-align: center;
@@ -418,7 +414,7 @@ export const StyledFooter = styled.div`
     h4 {
         margin: auto;
         padding: 1rem 0;
-        font-family: 'Raleway', Arial, sans-serif;
+        font-family: ${FONTS.content};
         font-size: 2rem;
         color: ${COLORS.blue};
         text-transform: capitalize;
@@ -470,7 +466,7 @@ export const StyledContactForm = styled.div`
         }
     }
     .billingAddress {
-        font-family: gotham-medium;
+        font-family: ${FONTS.headline};
         font-size: .75em;
         font-style: italic;
     }
