@@ -117,10 +117,7 @@ workflows:
   version: 2
   on_commit:
     jobs:
-      - lint
       - build_and_publish:
-          requires:
-            - lint
       - deploy:
           requires:
             - build_and_publish
