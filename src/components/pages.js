@@ -23,7 +23,7 @@ export const MainInfo = () => {
                         <h3>SATURDAY</h3>
                         <h3>9:00 - 5:00</h3>
                         <h3>SUNDAY</h3>
-                        <h3>11:00 - 4:00</h3>
+                        <h3>Check Availability</h3>
                     </div>
                 </section>
             </InfoSection>
@@ -57,7 +57,7 @@ export const Services = () => {
                         </tr>
                         <tr>
                         <td>One process color</td>
-                        <td>55.00 &amp; Up</td>
+                        <td>60.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Balayage</td>
@@ -89,7 +89,7 @@ export const Services = () => {
                         </tr>
                         <tr>
                         <td>Children Under 10 Years</td>
-                        <td>28.00 &amp; Up</td>
+                        <td>30.00 &amp; Up</td>
                         </tr>
                         <tr>
                         <td>Eye Brow Wax</td>
