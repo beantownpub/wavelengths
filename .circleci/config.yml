@@ -117,7 +117,7 @@ workflows:
   version: 2
   on_commit:
     jobs:
-      - build_and_publish:
+      - build_and_publish
       - deploy:
           requires:
             - build_and_publish
