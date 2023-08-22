@@ -39,4 +39,3 @@ spec:
           runAsNonRoot: false
         resources: {{- toYaml .Values.resources | nindent 10 }}
         tty: true
-        resources: {}
