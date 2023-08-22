@@ -37,5 +37,6 @@ spec:
           privileged: false
           readOnlyRootFilesystem: false
           runAsNonRoot: false
+        resources: {{- toYaml .Values.resources | nindent 10 }}
         tty: true
         resources: {}
