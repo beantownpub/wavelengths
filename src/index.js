@@ -36,8 +36,8 @@ const slideMenu = {
   footer: {
     text: `Est. 1980`,
     fontFamily: FONTS.content,
-    fontColor: COLORS.black,
-    fontSize: "1.5rem",
+    fontColor: COLORS.blue,
+    fontSize: "2rem",
     fontWeight: "900",
     textTransform: "uppercase"
   },
