@@ -1,84 +1,104 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { MainInfo, ContactInfo, Services } from './components/pages'
-import {  Footer } from './components/common'
-import { TopMenuBar, LinkList, TopNavBar, linkProps } from './components/TopBar'
-import { config } from './utils/main'
+import React from "react"
+import { createRoot } from "react-dom/client"
+import { MainMenuBar } from "@jalgraves/react-components-library"
+import { MainInfo, Services } from "./components/pages.js"
+import { Footer } from "./components/footer.js"
+import { config } from "./utils/main.js"
 
-const PAGES = config.pages
 const COLORS = config.colors
+const FONTS = config.fonts
+const PAGES = config.pages
 
-function topMenu() {
-    return (
-        <div >
-            <img src={"/images/wavelengths_logo_white.png"}  alt="wavelengths salaon" />
-        </div>
-    )
+const IMG_STYLES = {
+  margin: ".5em auto",
+  padding: "1em 0",
+  maxWidth: "60vw",
+  maxHeight: "4rem",
+  position: "absolute",
+  left: "4rem",
+  top: "1rem"
 }
 
-function navBar() {
-    return (
-        <TopNavBar
-            fontColor='white'
-            hoverColor='red'
-            props={linkProps(PAGES, 'top_menu')}
-        />
-    )
+const footerContainer = document.getElementById("footer")
+const topBarContainer = document.getElementById("topBar")
+const mainInfoContainer =  document.getElementById("mainInfo")
+const servicesContainer =  document.getElementById("services")
+const footer = createRoot(footerContainer)
+const topBar = createRoot(topBarContainer)
+const mainInfo = createRoot(mainInfoContainer)
+const services = createRoot(servicesContainer)
+
+const slideMenu = {
+  backgroundColor: COLORS.darkGray,
+  border: `.1rem solid ${COLORS.white}`,
+  fontColor: COLORS.white,
+  fontFamily: FONTS.content,
+  footer: {
+    text: `Est. 1980`,
+    fontFamily: FONTS.content,
+    fontColor: COLORS.black,
+    fontSize: "1.5rem",
+    fontWeight: "900",
+    textTransform: "uppercase"
+  },
+
+  linkList: {
+    borderRadius: "4px",
+    fontFamily: FONTS.content,
+    fontColor: COLORS.black,
+    fontSize: "1.5rem",
+    fontWeight: "900",
+    outline: `1px solid ${COLORS.white}`,
+    margin: "2rem auto",
+    pages: PAGES,
+    position: "relative",
+    hoverColor: COLORS.red,
+    width: "100%",
+    iconStyle: {
+      color: COLORS.red,
+      fontSize: "1em"
+    }
+  },
+  header: {
+    fontFamily: FONTS.content,
+    imgSource: "/images/wavelengths_horizontal_logo.png"
+  }
 }
 
-const menuList = <LinkList props={linkProps(PAGES, 'menu_list')} />
-
-function navBarLogo() {
-    var imgStyles = {position: 'absolute', padding: '.25em'}
-    return (
-        <a href="/">
-            <img style={imgStyles} src={"/images/wavelengths_horizontal_logo.png"}  alt="wavelengths salaon" />
-        </a>
-    );
-}
-
-ReactDOM.render(
-    <TopMenuBar
-        bottomMenu=''
-        fontColor='white'
-        navBarLogo={navBarLogo()}
-        topMenu={topMenu()}
-        menuList={menuList}
-        navBar={navBar()}
-        barColor='black'
-        menuColor={COLORS.darkGray} />,
-    document.getElementById('topBar')
+topBar.render(
+  <MainMenuBar
+    pages={PAGES}
+    fontColor={COLORS.white}
+    fontFamily={FONTS.content}
+    barColor={COLORS.black}
+    hamburgerBackground={COLORS.red}
+    hoverColor={COLORS.red}
+    navBarLogoImgStyles={IMG_STYLES}
+    mainMenuBarBorderBottom={`1px solid ${COLORS.yellow}`}
+    slideMenu={slideMenu}
+    mainMenuBarImgSource={"/images/wavelengths_horizontal_logo.png"}
+    mainMenuBarBoxShadow={`2px 2px 6px ${COLORS.darkGray}`}
+  />
 )
 
-ReactDOM.render(
-    <Footer/>,
-    document.getElementById('footer')
+footer.render(
+  <Footer/>
 )
 
-// if (document.getElementById('heroHeader')) {
-//     ReactDOM.render(
-//         <HeroHeader/>,
-//         document.getElementById('heroHeader')
-//     )
+// if (contactInfo) {
+//   contactInfo.render(
+//     <ContactInfo/>
+//   )
 // }
 
-if (document.getElementById('contactInfo')) {
-    ReactDOM.render(
-        <ContactInfo/>,
-        document.getElementById('contactInfo')
-    )
+if (mainInfo) {
+  mainInfo.render(
+    <MainInfo/>
+  )
 }
 
-if (document.getElementById('mainInfo')) {
-    ReactDOM.render(
-        <MainInfo/>,
-        document.getElementById('mainInfo')
-    )
-}
-
-if (document.getElementById('services')) {
-    ReactDOM.render(
-        <Services/>,
-        document.getElementById('services')
-    )
+if (services) {
+  services.render(
+    <Services/>
+  )
 }

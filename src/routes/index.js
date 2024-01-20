@@ -1,7 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var config = require('../utils/config.json')
-var sections = config.sections
+import express from "express"
+import { config } from '../utils/main.js'
+const router = express.Router()
+const sections = config.sections
 
 router.use(function (req, res, next) {
   next()
@@ -27,4 +27,4 @@ router.get('/contact.html', function (req, res, next) {
   res.render(contact.template, contact.metadata)
 })
 
-module.exports = router
+export default router

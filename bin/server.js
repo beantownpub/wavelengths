@@ -1,51 +1,47 @@
-#!/usr/bin/env node
-
-/**
- * Module dependencies.
- */
-
-var app = require('../src/app');
-var debug = require('debug')('node-jal:server');
-var http = require('http');
+import * as app from '../src/app.js'
+import http from 'http'
+import debugLib from 'debug'
+const debug = debugLib('wavelengths:server')
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3077');
-app.set('port', port);
-
+const port = normalizePort(process.env.PORT || '3077')
+app.default.set('port', port);
 /**
  * Create HTTP server.
  */
-
-var server = http.createServer(app);
+const server = http.createServer(app.default)
 
 /**
  * Listen on provided port, on all network interfaces.
  */
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
+console.log(`GIT_HASH: ${process.env.GIT_HASH}`)
+console.log(`VERSION: ${process.env.VERSION}`)
 
-server.listen(port, () => console.log(`listening on - http://localhost:${port}`));
-server.on('error', onError);
-server.on('listening', onListening);
+server.listen(port, () => console.log(`listening on - http://localhost:${port}`))
+server.on('error', onError)
+server.on('listening', onListening)
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10)
 
   if (isNaN(port)) {
     // named pipe
-    return val;
+    return val
   }
 
   if (port >= 0) {
-    return port;
+    return port
   }
 
-  return false;
+  return false
 }
 
 /**
@@ -57,22 +53,22 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  let bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(bind + ' requires elevated privileges')
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
+      console.error(bind + ' is already in use')
+      process.exit(1)
       break;
     default:
-      throw error;
+      throw error
   }
 }
 
@@ -81,10 +77,10 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  const addr = server.address()
+  let bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port
-  debug('Listening on ' + bind)
-  debug(`Env: ${process.env}`)
+  debug(`Listening on ${bind}`)
+
 }

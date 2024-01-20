@@ -1,11 +1,11 @@
 import React from 'react'
-import { SocialIcon } from './icons'
-import { config } from '../utils/main'
+import { SocialIcon } from './icons.js'
+import { config } from '../utils/main.js'
 const urls = config.urls
 
 const iconStyle = {
 	padding: '0 .25em',
-    color: '#1f6696',
+    color: config.colors.blue,
     fontSize: '3rem'
 }
 
