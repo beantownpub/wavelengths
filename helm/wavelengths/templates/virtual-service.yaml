@@ -7,7 +7,7 @@ metadata:
 spec:
   hosts:
   - "{{ include "wavelengths.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local"
-  - "{{ include "wavelengths.fullname" . }}.{{ .Values.regionCode }}.{{ .Release.Namespace }}.aws.beantownpub.com"
+  - "{{ include "wavelengths.fullname" . }}.{{ .Release.Namespace }}.{{ .Values.aws.regionCode }}.aws.beantownpub.com"
   - "wavelengths-brookline.com"
   - "www.wavelengths-brookline.com"
 

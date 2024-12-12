@@ -6,10 +6,10 @@ image:
   tag: ""
 
 containerPort: 3077
-regionCode:
+aws:
+  regionCode:
 resources:
   requests:
-    cpu: 50m
     memory: 100Mi
   limits:
     memory: 350Mi

@@ -10,9 +10,7 @@ RUN apt-get update  && \
 
 FROM --platform=linux/amd64 build AS install
 ARG git_hash
-ARG google_api_key
 ARG version
-ENV GOOGLE_API_KEY=${google_api_key}
 ARG node_env
 ENV NODE_ENV=${node_env}
 ENV GIT_HASH=${git_hash}

@@ -13,6 +13,7 @@ ifeq ($(env),dev)
 else ifeq ($(env),prod)
 	context = ${PROD_CONTEXT}
 	namespace = ${PROD_NAMESPACE}
+	region_code = ${PROD_REGION_CODE}
 endif
 
 package:
@@ -22,14 +23,14 @@ helm/context:
 	kubectl config use-context $(context)
 
 ## Install Helm chart
-helm/install: helm/context
-	cd helm/wavelengths && \
-	helm upgrade --install $(name) . \
-	--namespace $(namespace) \
-	--set global.env=$(env) \
-	--set image.tag=$(image_tag) \
-	--debug
-	sleep 5
+helm/install:
+	helm upgrade --install $(name) helm/wavelengths/ \
+		--kubeconfig="${HOME}"/.kube/$(kubeconfig) \
+		--namespace $(namespace) \
+		--set global.env=$(env) \
+		--set image.tag=$(image_tag) \
+		--set aws.regionCode=$(region_code) \
+		--debug
 
 template:
 		helm template . \
