@@ -103,7 +103,6 @@ export const Services = () => {
   return (
     <ContentContainer h1Color={COLORS.green} margin="1rem auto">
       <h1>SALON SERVICES</h1>
-      <h3>ALL PRICES</h3>
       <StyledTable>
         <table>
           <tbody>
