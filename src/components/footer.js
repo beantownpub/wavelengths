@@ -41,7 +41,7 @@ export const Footer = () => {
       <footer>
         <h3>Est. 1980</h3>
         <img src="/images/wavelengths_logo_white.png" alt="wavelengths logo" />
-        <h2>1343 Beacon St. Brookline MA, 02446</h2>
+        <h2>58 Kent Street Brookline Village Studio 104</h2>
         <h2>Call: 617-232-2116</h2>
         <h2>Stay Connected</h2>
         <SocialNav/>

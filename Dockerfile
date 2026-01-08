@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:20.9.0-buster-slim AS build
+FROM --platform=linux/amd64 node:22.6.0-bullseye-slim AS build
 
 RUN apt-get update  && \
     apt-get install -y \
@@ -25,7 +25,7 @@ COPY . ./
 RUN npx webpack --config webpack.config.cjs && \
     rm -rf node_modules
 
-FROM --platform=linux/amd64 node:20.9.0-buster-slim
+FROM --platform=linux/amd64 node:22.6.0-bullseye-slim
 
 ENV TINI_VERSION v0.19.0
 

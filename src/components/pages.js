@@ -55,19 +55,45 @@ export const MainInfo = () => {
       <ContentContainer h1Color={COLORS.white} margin="1rem auto">
         <img style={{margin: "auto", padding: "1rem 0", maxWidth: "290px"}} src="/images/wavelengths_logo_white.png" alt="Wavelengths Hair Salon" />
         <h1 style={{color: COLORS.blue}}>EST. 1980</h1>
-        <h1>1343 BEACON ST. BROOKLINE, MA 02446</h1>
+        <h1 style={{color: COLORS.green}}>We've moved to a new location!</h1>
+        <h1>58 Kent Street Brookline Village Studio 104</h1>
         <h2>CONTACT</h2>
-        <h3>(617) 232-2116</h3>
-        <h2>APPOINTMENTS AND WALK-INS WELCOME</h2>
-      </ContentContainer>
-      <ContentContainer h1Color={COLORS.green} margin=".5rem auto">
-        <h1>SALON HOURS</h1>
-        <h3>CLOSED MONDAY</h3>
-        <h3>TUESDAY - FRIDAY</h3>
-        <h3>9:00 - 7:30</h3>
-        <h3>SATURDAY</h3>
-        <h3>9:00 - 5:00</h3>
-        <h3>CLOSED SUNDAY</h3>
+        <h3>617-232-2116</h3>
+        <div style={{textAlign: "center", marginTop: "2rem"}}>
+          <a 
+            href="https://wavelengthstudio.glossgenius.com/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-block",
+              margin: "2rem auto",
+              padding: "1rem 2rem",
+              backgroundColor: COLORS.green,
+              color: COLORS.black,
+              fontFamily: FONTS.content,
+              fontSize: "1.5rem",
+              fontWeight: "900",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              borderRadius: "4px",
+              border: `2px solid ${COLORS.green}`,
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              textAlign: "center",
+              boxSizing: "border-box"
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = COLORS.black
+              e.target.style.color = COLORS.green
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = COLORS.green
+              e.target.style.color = COLORS.black
+            }}
+          >
+            Book An Appointment
+          </a>
+        </div>
       </ContentContainer>
     </ContentContainer>
   )
@@ -83,59 +109,39 @@ export const Services = () => {
           <tbody>
             <tr>
               <td>Wash &amp; Cut</td>
-              <td>40.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Wash, Cut, &amp; Blow Dry</td>
-              <td>60.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Wash, &amp; Blow Dry</td>
-              <td>40.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Up-Do</td>
-              <td>55.00 &amp; Up</td>
             </tr>
             <tr>
               <td>One process color</td>
-              <td>60.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Balayage</td>
-              <td>150.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Foil Highlights</td>
-              <td>100.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Perm</td>
-              <td>95.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Keratin Coppola Complex</td>
-              <td>300.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Keratin Express</td>
-              <td>125.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Olaplex Treatment</td>
-              <td>35.00 &amp; Up</td>
             </tr>
             <tr>
               <td>Conditioning Treatment</td>
-              <td>35.00 &amp; Up</td>
-            </tr>
-            <tr>
-              <td>Children Under 10 Years</td>
-              <td>30.00 &amp; Up</td>
-            </tr>
-            <tr>
-              <td>Eye Brow Wax</td>
-              <td>18.00</td>
             </tr>
           </tbody>
         </table>
